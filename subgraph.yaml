@@ -1,0 +1,56 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: core
+    network: xdai
+    source:
+      address: "0xd84Ea27b0BCf03FA5Ea558A896E0dc7Caa632a39"
+      abi: core
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AllConditionsStopped
+        - ConditionCreated
+        - ConditionResolved
+        - ConditionShifted
+        - ConditionStopped
+        - Initialized
+        - LpChanged
+        - MaintainerUpdated
+        - MaxBanksRatioChanged
+        - OracleAdded
+        - OracleRenounced
+        - OwnershipTransferred
+      abis:
+        - name: core
+          file: ./abis/core.json
+      eventHandlers:
+        - event: AllConditionsStopped(bool)
+          handler: handleAllConditionsStopped
+        - event: ConditionCreated(indexed uint256,indexed uint256,uint64)
+          handler: handleConditionCreated
+        - event: ConditionResolved(indexed uint256,indexed uint256,uint64,uint8,uint256)
+          handler: handleConditionResolved
+        - event: ConditionShifted(uint256,uint256,uint64)
+          handler: handleConditionShifted
+        - event: ConditionStopped(indexed uint256,bool)
+          handler: handleConditionStopped
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: LpChanged(indexed address)
+          handler: handleLpChanged
+        - event: MaintainerUpdated(indexed address,bool)
+          handler: handleMaintainerUpdated
+        - event: MaxBanksRatioChanged(uint64)
+          handler: handleMaxBanksRatioChanged
+        - event: OracleAdded(indexed address)
+          handler: handleOracleAdded
+        - event: OracleRenounced(indexed address)
+          handler: handleOracleRenounced
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/core.ts
